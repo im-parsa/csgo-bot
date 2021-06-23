@@ -3,8 +3,8 @@ const SourceQuery = require('sourcequery');
 const prefix = "+";
 const client = new Discord.Client();
 
-let port = "27015";
-let address = "server.csgoskin.ir";
+let port = "19000";
+let address = "S2.RGCSS.ir";
 
 
 
