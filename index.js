@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const SourceQuery = require('./sourcequery');
+const SourceQuery = require('sourcequery');
 const prefix = "+";
 const client = new Discord.Client();
 
@@ -14,7 +14,7 @@ client.on ("ready", () => {
   setInterval(() => {
     
   function queryserver2(ip, port) {
-    let sq = new SourceQuery(1000); // 1000ms timeout
+    let sq = new SourceQuery(5000); // 1000ms timeout
     console.log(ip + "  " + port);
     sq.open(ip, port);
     sq.getInfo(function (err, info) {
@@ -36,7 +36,7 @@ client.on ("ready", () => {
     });
   }
 
-  queryserver2("s2.rgcss.ir", "19000");
+    queryserver2("S2.RGCSS.ir", "19000");
 
   }, 15000);
 
@@ -44,19 +44,11 @@ client.on ("ready", () => {
 
 client.on("message", async message => {
   function queryserver(ip, port) {
-    let sq = new SourceQuery(1000); // 1000ms timeout
+    let sq = new SourceQuery(5000); // 1000ms timeout
     console.log(ip + "  " + port);
     sq.open(ip, port);
     sq.getInfo(function (err, info) {
       if (!err) {
-        sq.getPlayers(function (err, players) {
-          if (!err) {
-            console.log(sq.address);
-            var counter = 0;
-            playersname = "";
-            for (i = 0; i < players.length; i++) {
-              playersname = playersname + players[i].name + " - ";
-              if (counter == players.length - 1) {
                 console.log("Discord Message sent");
                 message.channel.send({
                   embed: {
@@ -64,7 +56,7 @@ client.on("message", async message => {
                     title: `${ip} CS:GO Server Status`,
                     fields: [{
                       name: "📦 Server Name",
-                      value: info.name
+                      value: "***"+info.name+"***"+"  `" + info.game + "`"
                     },
                     {
                       name: "🌐 Server IP",
@@ -77,33 +69,30 @@ client.on("message", async message => {
                       "inline": true
                     },
                     {
-                      name: "👥 Max Players",
-                      value: info.maxplayers,
+                      name: "👥 Players",
+                      value: info.maxplayers+"/"+info.players,
                       "inline": true
                     },
                     {
-                      name: "👤 Current Players",
-                      value: info.players,
+                      name: "🤖 Bots",
+                      value: info.bots,
                       "inline": true
                     },
                     {
-                      name: "🎮 Following Players are online",
-                      value: "```" + playersname + " \n```"
+                      name: "🏷️ Version",
+                      value: info.version,
+                      "inline": true
+                    },
+                    {
+                      name: "🪧 Protocol",
+                      value: info.protocol,
+                      "inline": true
                     }
                     ],
                     timestamp: new Date(),
                     
                   }
                 });
-              }
-              counter++;
-            }
-          }
-          else {
-            console.log("Error in Players query");
-            message.channel.send("Error in Players query");
-          }
-        });
       }
       else {
         console.log("Error in info query");
@@ -125,7 +114,7 @@ client.on("message", async message => {
 
 
   if (command == "status") {
-    queryserver("s2.rgcss.ir", "19000");
+    queryserver("S2.RGCSS.ir", "19000");
   }
 
 });
