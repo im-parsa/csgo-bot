@@ -118,4 +118,18 @@ client.on("message", async message => {
 
 });
 
+
+process.on("unhandledRejection", (reason, promise) => {
+  try {
+    console.error(
+      "Unhandled Rejection at: ",
+      promise,
+      "reason: ",
+      reason.stack || reason
+    );
+  } catch {
+    console.error(reason);
+  }
+});
+
 client.login("ODQwNDQ2MjI0MjA0NTYyNDUy.YJYUig.rXcGlAkmtKUP7simCYQNByTpP1k");
