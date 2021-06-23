@@ -1,12 +1,7 @@
 const Discord = require("discord.js");
-const SourceQuery = require('sourcequery');
+const SourceQuery = require('./sourcequery');
 const prefix = "+";
 const client = new Discord.Client();
-
-let port = "19000";
-let address = "S2.RGCSS.ir";
-
-
 
 client.on ("ready", () => {
 
@@ -16,21 +11,36 @@ client.on ("ready", () => {
   status: 'idle',
   })
 
+  setInterval(() => {
+    
   function queryserver2(ip, port) {
     let sq = new SourceQuery(1000); // 1000ms timeout
     console.log(ip + "  " + port);
     sq.open(ip, port);
     sq.getInfo(function (err, info) {
+      if (!err) {
         sq.getPlayers(function (err, players) {
+          if (!err) {
+            
             client.user.setActivity(`👤 ${info.maxplayers}/${info.players}`, { type: 'WATCHING' })
+
+          }
+          else {
+            console.log("Error in Players query");
+          }
         });
+      }
+      else {
+        console.log("Error in info query");
+      }
     });
   }
 
-  queryserver2(address, port);
+  queryserver2("s2.rgcss.ir", "19000");
+
+  }, 15000);
 
 }); 
-
 
 client.on("message", async message => {
   function queryserver(ip, port) {
@@ -45,7 +55,7 @@ client.on("message", async message => {
             var counter = 0;
             playersname = "";
             for (i = 0; i < players.length; i++) {
-              playersname = playersname + players[i].name + " - " || " 0 ";
+              playersname = playersname + players[i].name + " - ";
               if (counter == players.length - 1) {
                 console.log("Discord Message sent");
                 message.channel.send({
@@ -115,20 +125,9 @@ client.on("message", async message => {
 
 
   if (command == "status") {
-    queryserver(address, port);
+    queryserver("s2.rgcss.ir", "19000");
   }
 
 });
-
-
-
-process.on("unhandledRejection", (reason, promise) => {
-  try {
-      console.error("Unhandled Rejection at: ", promise, "reason: ", reason.stack || reason);
-  } catch {
-      console.error(reason);
-  }
-});
-
 
 client.login("ODQwNDQ2MjI0MjA0NTYyNDUy.YJYUig.rXcGlAkmtKUP7simCYQNByTpP1k");
