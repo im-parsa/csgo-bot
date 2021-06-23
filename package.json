@@ -6,7 +6,9 @@
   "dependencies": {
     "csgo-api": "^1.3.2",
     "discord.js": "^12.5.3",
-    "sourcequery": "^0.0.2"
+    "jalali-date": "^1.1.4",
+    "persian-date": "^1.1.0",
+    "sourcequery": "0.0.2"
   },
   "devDependencies": {},
   "scripts": {
