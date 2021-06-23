@@ -1,5 +1,6 @@
 const Discord = require("discord.js");
 const SourceQuery = require('sourcequery');
+const JDate = require('jalali-date');
 const prefix = "+";
 const client = new Discord.Client();
 
@@ -7,38 +8,36 @@ client.on ("ready", () => {
 
   console.log(`Logged in ${client.user.username}#${client.user.discriminator}`);
 
+
   client.user.setPresence ({
   status: 'idle',
   })
 
   setInterval(() => {
-    
-  function queryserver2(ip, port) {
-    let sq = new SourceQuery(5000); // 1000ms timeout
-    console.log(ip + "  " + port);
-    sq.open(ip, port);
-    sq.getInfo(function (err, info) {
-      if (!err) {
-        sq.getPlayers(function (err, players) {
-          if (!err) {
-            
-            client.user.setActivity(`👤 ${info.maxplayers}/${info.players}`, { type: 'WATCHING' })
 
-          }
-          else {
-            console.log("Error in Players query");
-          }
-        });
-      }
-      else {
-        console.log("Error in info query");
-      }
-    });
-  }
+    const jdate = new JDate;
 
-    queryserver2("S2.RGCSS.ir", "19000");
+    const guild = client.guilds.cache.get('805775379682820126')
+    const channelCountChannel = guild.channels.cache.get('807533595127709716')
+    channelCountChannel.setName(`『📅』${jdate.getFullYear()}/${jdate.getMonth()}/${jdate.getDay()}`)
 
-  }, 15000);
+    function queryserver2(ip, port) {
+      let sq = new SourceQuery(5000); // 1000ms timeout
+      console.log(ip + "  " + port);
+      sq.open(ip, port);
+      sq.getInfo(function (err, info) {
+        if (!err) {
+              client.user.setActivity(`👤 ${info.maxplayers}/${info.players}`, { type: 'WATCHING' })
+        }
+        else {
+          console.log("Error in info query");
+        }
+      });
+    }
+
+      queryserver2("S2.RGCSS.ir", "19000");
+
+  }, 10000);
 
 }); 
 
