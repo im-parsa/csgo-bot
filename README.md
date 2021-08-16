@@ -17,7 +17,7 @@ If deploying to Heroku make sure to create config variables
 
 ```
 git clone https://github.com/im-parsa/csgo-bot.git
-cd evobot
+cd csgo-bot
 npm install
 ```
 
