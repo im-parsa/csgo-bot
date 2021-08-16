@@ -1,6 +1,6 @@
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/im-parsa/csgo-bot)
 
-![logo](https://repository-images.githubusercontent.com/186841818/8aa95700-7730-11e9-84be-e80f28520325)
+![logo](https://cdn.discordapp.com/attachments/776425421968244768/876716146894704691/a77ce7fbf1014e805bfd70db25fa50f7.jpg)
 
 # 🤖 csgo:bot (Discord CSGO Bot)
 > Just simple discord bot built with discord.js [discordjs.guide](https://discordjs.guide)
