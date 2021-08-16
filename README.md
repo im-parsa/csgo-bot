@@ -5,7 +5,7 @@
 # 🤖 csgo:bot (Discord CSGO Bot)
 > Just simple discord bot built with discord.js [discordjs.guide](https://discordjs.guide)
 
-## Requirements
+## 🔖 Requirements
 
 1. Discord Bot Token **[Guide](https://discordjs.guide/preparations/setting-up-a-bot-application.html#creating-your-bot)**
 2. Csgo server IP & PORT **[Guide](https://www.gametracker.com/search/csgo/)**  
