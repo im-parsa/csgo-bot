@@ -1,49 +1,26 @@
 const Discord = require("discord.js");
 const SourceQuery = require('sourcequery');
-const JDate = require('jalali-date');
-const prefix = "+";
 const client = new Discord.Client();
+
+let PREFIX;
+let YOUR_TOKEN;
+let SERVER_IP;
+let SERVER_PORT;
 
 client.on ("ready", () => {
 
   console.log(`Logged in ${client.user.username}#${client.user.discriminator}`);
 
-
   client.user.setPresence ({
   status: 'idle',
   })
 
-  setInterval(() => {
-
-    const jdate = new JDate;
-
-    const guild = client.guilds.cache.get('805775379682820126')
-    const channelCountChannel = guild.channels.cache.get('807533595127709716')
-    channelCountChannel.setName(`『📅』${jdate.getFullYear()}/${jdate.getMonth()}/${jdate.getDay()}`)
-
-    function queryserver2(ip, port) {
-      let sq = new SourceQuery(5000); // 1000ms timeout
-      console.log(ip + "  " + port);
-      sq.open(ip, port);
-      sq.getInfo(function (err, info) {
-        if (!err) {
-              client.user.setActivity(`👤 ${info.maxplayers}/${info.players}`, { type: 'WATCHING' })
-        }
-        else {
-          console.log("Error in info query");
-        }
-      });
-    }
-
-      queryserver2("S2.RGCSS.ir", "19000");
-
-  }, 10000);
-
-}); 
+});
 
 client.on("message", async message => {
+
   function queryserver(ip, port) {
-    let sq = new SourceQuery(5000); // 1000ms timeout
+    let sq = new SourceQuery(5000);
     console.log(ip + "  " + port);
     sq.open(ip, port);
     sq.getInfo(function (err, info) {
@@ -102,34 +79,17 @@ client.on("message", async message => {
 
   if (message.author.bot) return;
 
-  if (message.content.indexOf(prefix) !== 0) return;
+  if (message.content.indexOf(PREFIX) !== 0) return;
 
-  const args = message.content.slice(prefix.length).trim().split(/ ss/g);
-  var arguments = args.shift().toLowerCase();
+  const args = message.content.slice(PREFIX.length).trim().split(/ ss/g);
+  let arguments = args.shift().toLowerCase();
   arguments = arguments.split(" ");
   const command = arguments[0];
-  console.log(arguments);
-  console.log(command);
 
-
-  if (command == "status") {
-    queryserver("S2.RGCSS.ir", "19000");
+  if (command === "status") {
+    queryserver(SERVER_IP, SERVER_PORT);
   }
 
 });
 
-
-process.on("unhandledRejection", (reason, promise) => {
-  try {
-    console.error(
-      "Unhandled Rejection at: ",
-      promise,
-      "reason: ",
-      reason.stack || reason
-    );
-  } catch {
-    console.error(reason);
-  }
-});
-
-client.login("ODQwNDQ2MjI0MjA0NTYyNDUy.YJYUig.rXcGlAkmtKUP7simCYQNByTpP1k");
+client.login(YOUR_TOKEN);
